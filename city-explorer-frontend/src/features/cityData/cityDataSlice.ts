@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchCityData } from './cityDataService'; //TODO
+//import { fetchCityData } from './cityDataService'; //TODO
 
 interface CityDataState {
   weather: any | null;
@@ -42,7 +42,7 @@ const cityDataSlice = createSlice({
 });
 
 export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = cityDataSlice.actions;
-
+/*
 export const fetchCityDataThunk = (city: string) => async (dispatch: any) => {
   dispatch(fetchDataStart());
   try {
@@ -52,5 +52,5 @@ export const fetchCityDataThunk = (city: string) => async (dispatch: any) => {
     dispatch(fetchDataFailure(error.message));
   }
 };
-
+*/
 export default cityDataSlice.reducer;

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginUser, logoutUser } from './authService'; // TODO
+//import { loginUser, logoutUser } from './authService'; // TODO
 
 const authSlice = createSlice({
   name: 'auth',
@@ -28,19 +28,22 @@ const authSlice = createSlice({
 
 export const { loginStart, loginSuccess, loginFailure, logout } = authSlice.actions;
 
-export const login = (credentials) => async (dispatch) => {
-  dispatch(loginStart());
-  try {
-    const user = await loginUser(credentials);
-    dispatch(loginSuccess(user));
-  } catch (error) {
-    dispatch(loginFailure(error.message));
-  }
+export const login = (credentials: { username: string; password: string; }) => async (dispatch: any) => {
+  // for developement proposes
+  return;
+  
+  // dispatch(loginStart());
+  // try {
+  //   const user = await loginUser(credentials);
+  //   dispatch(loginSuccess(user));
+  // } catch (error) {
+  //   dispatch(loginFailure(error.message));
+  // }
 };
-
+/*
 export const performLogout = () => async (dispatch) => {
   await logoutUser();
   dispatch(logout());
 };
-
+*/
 export default authSlice.reducer;
