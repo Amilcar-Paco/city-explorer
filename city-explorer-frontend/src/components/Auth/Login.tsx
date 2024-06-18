@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
+    const { t } = useTranslation();
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -63,9 +66,12 @@ const Login: React.FC = () => {
                             aria-hidden="true"
                         >
                             <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M20 4a16 16 0 0 0-9.395 2.98l-.185.137-.138-.099A16 16 0 1 0 20 4zm0 4c4.418 0 8 3.582 8 8s-3.582 8-8 8-8-3.582-8-8 3.582-8 8-8zm-6 7h12c.667 0 1 .334 1 1v1c0 .667-.333 1-1 1h-12c-.666 0-1-.333-1-1v-1c0-.666.334-1 1-1zm0 5c-.667 0-1 .333-1 1v1c0 .667.333 1 1 1h12c.667 0 1-.333 1-1v-1c0-.667-.333-1-1-1z"
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M20 4a16 16 0 0 0-9.395 2.98l-.185.137-.138-.099A16
+                                16 0 1 0 20 4zm0 4c4.418 0 8 3.582 8 8s-3.582 8-8 8-8-3.582-8-8 3.582-8 8-8zm-6 7h12c.667 0
+                                1 .334 1 1v1c0 .667-.333 1-1 1h-12c-.666 0-1-.333-1-1v-1c0-.666.334-1 1-1zm0 5c-.667 0-1 .333-1
+                                1v1c0 .667.333 1 1 1h12c.667 0 1-.333 1-1v-1c0-.667-.333-1-1-1z"
                             />
                         </svg>
                     </div>
@@ -73,7 +79,7 @@ const Login: React.FC = () => {
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                    Email address <span className="text-red-500">*</span>
+                                    {t('EMAIL_LABEL')}
                                 </label>
                                 <input
                                     id="email"
@@ -89,7 +95,7 @@ const Login: React.FC = () => {
                             </div>
                             <div>
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                    Password <span className="text-red-500">*</span>
+                                    {t('PASSWORD_LABEL')}
                                 </label>
                                 <input
                                     id="password"
@@ -113,25 +119,26 @@ const Login: React.FC = () => {
                                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                                 />
                                 <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-900">
-                                    Remember me
+                                    {t('REMEMBER_ME')}
                                 </label>
                             </div>
                             <div>
                                 <button
                                     type="submit"
-                                    className="w-full bg-indigo-600 py-2 px-4 mt-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    className="w-full bg-indigo-600 py-2 px-4 mt-4 border border-transparent rounded-md shadow-sm
+                                    text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 >
-                                    Sign In
+                                    {t('SIGN_IN')}
                                 </button>
                             </div>
                         </form>
                         <div className="mt-6">
                             <div className="flex justify-between">
                                 <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500">
-                                    Forgot password?
+                                    {t('FORGOT_PASSWORD')}
                                 </a>
                                 <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500" onClick={() => navigate('/register')}>
-                                    Don't have an account? Sign Up
+                                    {t('SIGN_UP_LINK')}
                                 </a>
                             </div>
                         </div>

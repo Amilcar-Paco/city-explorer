@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
+    const { t } = useTranslation();
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -75,7 +78,7 @@ const Register: React.FC = () => {
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
                                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                                    First Name <span className="text-red-500">*</span>
+                                    {t('FIRST_NAME')} <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="firstName"
@@ -91,7 +94,7 @@ const Register: React.FC = () => {
                             </div>
                             <div>
                                 <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                                    Last Name <span className="text-red-500">*</span>
+                                    {t('LAST_NAME')} <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="lastName"
@@ -107,7 +110,7 @@ const Register: React.FC = () => {
                             </div>
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                    Email address <span className="text-red-500">*</span>
+                                    {t('EMAIL_LABEL')} <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="email"
@@ -123,7 +126,7 @@ const Register: React.FC = () => {
                             </div>
                             <div>
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                    Password <span className="text-red-500">*</span>
+                                    {t('PASSWORD_LABEL')} <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="password"
@@ -147,7 +150,7 @@ const Register: React.FC = () => {
                                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                                 />
                                 <label htmlFor="allowExtraEmails" className="ml-2 block text-sm text-gray-900">
-                                    I want to receive inspiration, marketing promotions and updates via email.
+                                    {t('MARKETING_EMAILS')}
                                 </label>
                             </div>
                             <div>
@@ -155,15 +158,15 @@ const Register: React.FC = () => {
                                     type="submit"
                                     className="w-full bg-indigo-600 py-2 px-4 mt-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 >
-                                    Sign Up
+                                    {t('SIGN_UP')}
                                 </button>
                             </div>
                         </form>
                         <div className="mt-6">
                             <p className="text-sm text-gray-600">
-                                Already have an account?{' '}
+                               {t('ALREADY_HAVE_ACCOUNT')}{' '}
                                 <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500" onClick={() => navigate('/login')}>
-                                    Sign in
+                                    {t('SIGN_IN')}
                                 </a>
                             </p>
                         </div>

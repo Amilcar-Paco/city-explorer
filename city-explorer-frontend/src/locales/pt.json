@@ -1,3 +1,16 @@
 {
-  "HELLO": "Hello"
-}
+    "EMAIL_LABEL": "Endereço de email",
+    "EMAIL_REQUIRED": "O endereço de email é obrigatório",
+    "PASSWORD_LABEL": "Senha",
+    "PASSWORD_REQUIRED": "A senha é obrigatória",
+    "REMEMBER_ME": "Lembrar-me",
+    "SIGN_IN": "Entrar",
+    "FORGOT_PASSWORD": "Esqueceu a senha?",
+    "SIGN_UP_LINK": "Não tem uma conta? Cadastre-se",
+    "FIRST_NAME": "Nome",
+    "LAST_NAME": "Sobrenome",
+    "MARKETING_EMAILS": "Eu quero receber inspiração, promoções de marketing e atualizações por email.",
+    "SIGN_UP": "Cadastrar-se",
+    "ALREADY_HAVE_ACCOUNT": "Já tem uma conta?"
+  }
+  

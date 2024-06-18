@@ -1,3 +1,16 @@
 {
-  "HELLO": "Hello"
-}
+    "EMAIL_LABEL": "Email address",
+    "EMAIL_REQUIRED": "Email address is required",
+    "PASSWORD_LABEL": "Password",
+    "PASSWORD_REQUIRED": "Password is required",
+    "REMEMBER_ME": "Remember me",
+    "SIGN_IN": "Sign In",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "SIGN_UP_LINK": "Don't have an account? Sign Up",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "MARKETING_EMAILS": "I want to receive inspiration, marketing promotions and updates via email.",
+    "SIGN_UP": "Sign Up",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?"
+  }
+  
