@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: city-explorer
+  datasource:
+    url: jdbc:postgresql://ep-snowy-boat-a5s4k706.us-east-2.aws.neon.tech:5432/city-explorer?sslmode=require
+    username: city-explorer_owner
+    password: QGpbPrKY7B0u
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+      show-sql: true
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  sql:
+    init:
+      mode: always
+  jackson:
+    deserialization:
+      READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE: true
+    serialization:
+      INDENT_OUTPUT: true
+  security:
+    jwt:
+      secret: ${JWT_SECRET:secret}
+      expiration: ${EXPIRATION:840000}
+      refreshMs: ${REFRESH_TIME_MS:9840000}
+server:
+  port: ${APPLICATION_PORT:8080}
