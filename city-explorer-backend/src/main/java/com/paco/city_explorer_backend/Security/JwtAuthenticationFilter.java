@@ -1,6 +1,8 @@
 package com.paco.city_explorer_backend.Security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,16 +20,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
+    private ApplicationContext applicationContext;
+
     private JwtTokenProvider jwtTokenProvider;
-    @Autowired
+
     private UserDetailsService userDetailsService;
 
-    @SuppressWarnings("null") // Remove null warnning from HttpServletRequest, HttpServletResponse and FilterChain
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws ServletException, IOException {
+        if (request.getServletPath().contains("/api/v1/auth")) {
+            chain.doFilter(request, response);
+            return;
+        }
         final String header = request.getHeader("Authorization");
         String jwtToken = null;
         String username = null;
@@ -47,15 +56,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // Once we get the token, validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            // Lazy initialization of UserDetailsService
+            if (userDetailsService == null) {
+                userDetailsService = applicationContext.getBean(UserDetailsService.class);
+            }
 
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             if (jwtTokenProvider.validateToken(jwtToken, userDetails)) {
-
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                // After setting the Authentication in the context, we specify that the current user is authenticated. So it passes the Spring Security Configurations successfully.
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
