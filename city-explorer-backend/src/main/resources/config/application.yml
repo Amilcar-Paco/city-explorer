@@ -1,6 +1,8 @@
 spring:
   application:
     name: city-explorer
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: jdbc:postgresql://ep-snowy-boat-a5s4k706.us-east-2.aws.neon.tech:5432/city-explorer?sslmode=require
     username: city-explorer_owner
@@ -26,7 +28,7 @@ spring:
       INDENT_OUTPUT: true
   security:
     jwt:
-      secret: ${JWT_SECRET:secret}
+      secret: ${JWT_SECRET:09a2f721c66d652a1a58b7e3380b0127c8d12d2d14c6e0ebf0341b183fb3f0e1}
       expiration: ${EXPIRATION:840000}
       refreshMs: ${REFRESH_TIME_MS:9840000}
 server:
