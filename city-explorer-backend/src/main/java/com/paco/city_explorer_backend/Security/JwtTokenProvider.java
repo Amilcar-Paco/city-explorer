@@ -17,11 +17,14 @@ import java.util.function.Function;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${spring.security.jwt.secret}")
+    @Value("${security.jwt.secret}")
     private String secret;
 
-    @Value("${spring.security.jwt.expiration}")
+    @Value("${security.jwt.expiration}")
     private long expiration;
+
+    @Value("${security.jwt.refreshMs}")
+    private long refreshExpiration;
 
     private Key key;
 
@@ -35,6 +38,15 @@ public class JwtTokenProvider {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(key, SignatureAlgorithm.HS512)
+                .compact();
+    }
+
+    public String generateRefreshToken(UserDetails userDetails) {
+        return Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }

@@ -1,5 +1,6 @@
 package com.paco.city_explorer_backend.Security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,18 +20,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private ApplicationContext applicationContext; // Inject ApplicationContext
+    private ApplicationContext applicationContext;
 
-    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     private UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws ServletException, IOException {
+        if (request.getServletPath().contains("/api/v1/auth")) {
+            chain.doFilter(request, response);
+            return;
+        }
         final String header = request.getHeader("Authorization");
         String jwtToken = null;
         String username = null;

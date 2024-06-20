@@ -1,16 +1,21 @@
+# Application name and main settings
 spring:
   application:
     name: city-explorer
   main:
     allow-bean-definition-overriding: true
+
+  # DataSource configuration for PostgreSQL
   datasource:
     url: jdbc:postgresql://ep-snowy-boat-a5s4k706.us-east-2.aws.neon.tech:5432/city-explorer?sslmode=require
     username: city-explorer_owner
     password: QGpbPrKY7B0u
+
+  # JPA (Java Persistence API) configuration
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update  # Change to 'update' in production to retain data
       show-sql: true
       properties:
         hibernate:
@@ -18,18 +23,21 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-  sql:
-    init:
-      mode: always
-  jackson:
-    deserialization:
-      READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE: true
-    serialization:
-      INDENT_OUTPUT: true
-  security:
-    jwt:
-      secret: ${JWT_SECRET:09a2f721c66d652a1a58b7e3380b0127c8d12d2d14c6e0ebf0341b183fb3f0e1}
-      expiration: ${EXPIRATION:840000}
-      refreshMs: ${REFRESH_TIME_MS:9840000}
+
+# Spring Boot application server settings
 server:
-  port: ${APPLICATION_PORT:8080}
+  port: ${APPLICATION_PORT:8080}  # Port on which the application will run
+
+# Jackson configuration for JSON serialization/deserialization
+jackson:
+  deserialization:
+    READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE: true  # Deserialize unknown enum values using default
+  serialization:
+    INDENT_OUTPUT: true  # Pretty-print JSON responses
+
+# Security configuration
+security:
+  jwt:
+    secret: ${JWT_SECRET:09a2f721c66d652a1a58b7e3380b0127c8d12d2d14c6e0ebf0341b183fb3f0e1}  # JWT secret key (default)
+    expiration: ${EXPIRATION:840000}  # JWT expiration time in milliseconds
+    refreshMs: ${REFRESH_TIME_MS:9840000}  # Refresh token validity in milliseconds
