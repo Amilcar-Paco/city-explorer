@@ -5,11 +5,11 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-# DataSource configuration for PostgreSQL
-datasource:
-  url: jdbc:postgresql://${DB_HOST:your-postgres-host}:${DB_PORT:5432}/${DB_NAME:city-explorer}?sslmode=require
-  username: ${DB_USERNAME:city-explorer_owner}
-  password: ${DB_PASSWORD:your-postgres-password}
+  # DataSource configuration for PostgreSQL
+  datasource:
+    url: jdbc:postgresql://ep-snowy-boat-a5s4k706.us-east-2.aws.neon.tech:5432/city-explorer?sslmode=require
+    username: city-explorer_owner
+    password: QGpbPrKY7B0u
 
   # JPA (Java Persistence API) configuration
   jpa:
@@ -49,7 +49,13 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
-# Exchange rate URL
+# Exchange API key and rate URL
 exchange:
   base-url: ${EXCHANGE_URL:http://api.exchangeratesapi.io/v1 }
-  key: ${ACCESS_KEY:defaultKey }
+  key: ${ACCESS_KEY:c693762dc0bccf0d635793b42beb3974}
+
+#Weather API key and url
+weather:
+  base-url: ${WEATHER_URL:http://api.openweathermap.org}
+  key: ${ACCESS_KEY:2d450cbb7a06a79a35508177ebf78d90}
+  limit: ${LIMIT:1}

@@ -19,7 +19,7 @@ public class ExchangeRateService {
     private static final Logger logger = LoggerFactory.getLogger(ExchangeRateService.class);
 
     @Value("${exchange.base-url}")
-    private String exchangeApiBaseUrl;
+    private String apiBaseUrl;
 
     @Value("${exchange.key}")
     private String accessKey;
@@ -54,7 +54,7 @@ public class ExchangeRateService {
     }
 
     private String buildApiUrl(String baseCurrency, String date, String symbols) {
-        return exchangeApiBaseUrl + "/" + date + "?access_key=" + accessKey +
+        return apiBaseUrl + "/" + date + "?access_key=" + accessKey +
                 "&base=" + baseCurrency + "&symbols=" + symbols;
     }
 
