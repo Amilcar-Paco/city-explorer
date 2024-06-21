@@ -41,3 +41,10 @@ security:
     secret: ${JWT_SECRET:09a2f721c66d652a1a58b7e3380b0127c8d12d2d14c6e0ebf0341b183fb3f0e1}  # JWT secret key (default)
     expiration: ${EXPIRATION:840000}  # JWT expiration time in milliseconds
     refreshMs: ${REFRESH_TIME_MS:9840000}  # Refresh token validity in milliseconds
+
+# Springdoc OpenAPI configuration
+springdoc:
+  api-docs:
+    path: /v1/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
