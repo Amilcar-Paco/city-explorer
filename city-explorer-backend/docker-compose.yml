@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  city-explorer-app:
+    image: city-explorer-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - EXCHANGE_URL=http://api.exchangeratesapi.io/v1
+      - ACCESS_KEY=your_access_key_here
+    command: ["java", "-Dspring.profiles.active=docker", "-jar", "app.jar"]

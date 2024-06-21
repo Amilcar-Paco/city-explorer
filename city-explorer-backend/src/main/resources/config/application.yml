@@ -5,11 +5,11 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-  # DataSource configuration for PostgreSQL
-  datasource:
-    url: jdbc:postgresql://ep-snowy-boat-a5s4k706.us-east-2.aws.neon.tech:5432/city-explorer?sslmode=require
-    username: city-explorer_owner
-    password: QGpbPrKY7B0u
+# DataSource configuration for PostgreSQL
+datasource:
+  url: jdbc:postgresql://${DB_HOST:your-postgres-host}:${DB_PORT:5432}/${DB_NAME:city-explorer}?sslmode=require
+  username: ${DB_USERNAME:city-explorer_owner}
+  password: ${DB_PASSWORD:your-postgres-password}
 
   # JPA (Java Persistence API) configuration
   jpa:
@@ -51,5 +51,5 @@ springdoc:
 
 # Exchange rate URL
 exchange:
-  base-url: http://api.exchangeratesapi.io/v1
-  key: c693762dc0bccf0d635793b42beb3974
+  base-url: ${EXCHANGE_URL:http://api.exchangeratesapi.io/v1 }
+  key: ${ACCESS_KEY:defaultKey }
