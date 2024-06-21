@@ -48,3 +48,8 @@ springdoc:
     path: /v1/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+# Exchange rate URL
+exchange:
+  base-url: http://api.exchangeratesapi.io/v1
+  key: c693762dc0bccf0d635793b42beb3974
