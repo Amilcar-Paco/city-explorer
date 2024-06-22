@@ -17,7 +17,7 @@ Welcome to the City Explorer application repository! This project integrates a f
 
 ## Project Status
 
-Due to time constraints, not all requirements have been fully implemented in this repository. However, the application is functional, and additional features can be explored in a live coding session.
+Due to time constraints, not all requirements have been fully implemented in this repository (Map Integration). However, the application is functional, and additional features can be explored in a live coding session.
 
 ## API Routes
 
