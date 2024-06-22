@@ -2,7 +2,6 @@ package com.paco.city_explorer_backend.Dto.Auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
