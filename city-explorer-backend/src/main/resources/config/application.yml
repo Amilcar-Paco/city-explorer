@@ -54,8 +54,12 @@ exchange:
   base-url: ${EXCHANGE_URL:http://api.exchangeratesapi.io/v1 }
   key: ${ACCESS_KEY:c693762dc0bccf0d635793b42beb3974}
 
-#Weather API key and url
+# Weather API key and url
 weather:
   base-url: ${WEATHER_URL:http://api.openweathermap.org}
   key: ${ACCESS_KEY:2d450cbb7a06a79a35508177ebf78d90}
   limit: ${LIMIT:1}
+
+# World Bank Open API
+worldBank:
+  base-url: ${WORLD_BANK_URL:http://api.worldbank.org/v2}

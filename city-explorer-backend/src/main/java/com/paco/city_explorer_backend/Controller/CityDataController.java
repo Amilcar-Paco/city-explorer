@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,6 +84,54 @@ public class CityDataController {
             return ResponseEntity.ok(exchangeRates);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
+    /**
+     * Endpoint to get population data for a city.
+     *
+     * @param cityName the name of the city
+     * @return ResponseEntity containing the WorldBankDataDTO with population data
+     */
+    @Operation(summary = "Get population data for a city", description = "Fetch population data for a specified city by name.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved population data"),
+            @ApiResponse(responseCode = "404", description = "City not found"),
+            @ApiResponse(responseCode = "500", description = "Unexpected error")
+    })
+    @GetMapping("/{cityName}/population")
+    public ResponseEntity<Object> getPopulation(
+            @Parameter(description = "Name of the city to retrieve population data for", required = true)
+            @PathVariable String cityName) {
+        try {
+            var populationDTO = cityDataService.getPopulation(cityName);
+            return new ResponseEntity<>(populationDTO, HttpStatus.OK);
+        } catch (ResourceNotFoundException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * Endpoint to get GDP data for a city.
+     *
+     * @param cityName the name of the city
+     * @return ResponseEntity containing the WorldBankDataDTO with GDP data
+     */
+    @Operation(summary = "Get GDP data for a city", description = "Fetch GDP data for a specified city by name.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved GDP data"),
+            @ApiResponse(responseCode = "404", description = "City not found"),
+            @ApiResponse(responseCode = "500", description = "Unexpected error")
+    })
+    @GetMapping("/{cityName}/gdp")
+    public ResponseEntity<Object> getGDP(
+            @Parameter(description = "Name of the city to retrieve GDP data for", required = true)
+            @PathVariable String cityName) {
+        try {
+            var gdpDTO = cityDataService.getGDP(cityName);
+            return new ResponseEntity<>(gdpDTO, HttpStatus.OK);
+        } catch (ResourceNotFoundException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
