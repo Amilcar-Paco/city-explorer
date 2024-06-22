@@ -1,6 +1,5 @@
 package com.paco.city_explorer_backend.Service;
 
-import com.paco.city_explorer_backend.Dto.CityDataDTO;
 import com.paco.city_explorer_backend.Dto.Weather.WeatherDTO;
 import com.paco.city_explorer_backend.Exception.ResourceNotFoundException;
 import com.paco.city_explorer_backend.Service.Weather.GeoCodingService;
@@ -24,16 +23,12 @@ public class CityDataService {
         this.geoCodingService = geoCodingService;
     }
 
-    public CityDataDTO getCityData (String cityName) {
+    public WeatherDTO getCityData (String cityName) {
         var getLocation = geoCodingService.geoLocation(cityName);
         if (getLocation == null) {
             logger.error("No geolocation data found for city: {}", cityName);
             throw new ResourceNotFoundException("No geolocation data found for city: " + cityName);
         }
-        WeatherDTO weather = weatherService.getWeather(getLocation.getLat(), getLocation.getLon());
-        var cityData = new CityDataDTO();
-        cityData.setWeather(weather);
-
-        return cityData;
+        return weatherService.getWeather(getLocation.getLat(), getLocation.getLon());
     }
 }

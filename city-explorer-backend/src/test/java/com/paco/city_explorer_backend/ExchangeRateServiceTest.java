@@ -46,7 +46,7 @@ public class ExchangeRateServiceTest {
 
         // Call the service method and assert exception handling
         try {
-            exchangeRateService.getTodayExchangeRates(baseCurrency, symbols);
+            exchangeRateService.getTodayExchangeRates();
         } catch (IllegalArgumentException e) {
             assertEquals("Bad Request - Invalid input parameters", e.getMessage());
         }
