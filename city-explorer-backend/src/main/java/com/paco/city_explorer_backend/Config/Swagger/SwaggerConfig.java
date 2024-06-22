@@ -1,4 +1,4 @@
-package com.paco.city_explorer_backend.Config;
+package com.paco.city_explorer_backend.Config.Swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;

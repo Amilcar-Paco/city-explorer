@@ -1,4 +1,4 @@
-package com.paco.city_explorer_backend.Config;
+package com.paco.city_explorer_backend.Config.Security;
 
 import com.paco.city_explorer_backend.Repository.UserRepository;
 
