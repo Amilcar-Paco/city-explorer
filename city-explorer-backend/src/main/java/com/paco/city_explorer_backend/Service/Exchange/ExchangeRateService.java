@@ -1,6 +1,6 @@
-package com.paco.city_explorer_backend.Service;
+package com.paco.city_explorer_backend.Service.Exchange;
 
-import com.paco.city_explorer_backend.Dto.ExchangeRateDTO;
+import com.paco.city_explorer_backend.Dto.Exchange.ExchangeRateDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ public class ExchangeRateService {
     private static final Logger logger = LoggerFactory.getLogger(ExchangeRateService.class);
 
     @Value("${exchange.base-url}")
-    private String exchangeApiBaseUrl;
+    private String apiBaseUrl;
 
     @Value("${exchange.key}")
     private String accessKey;
@@ -54,7 +54,7 @@ public class ExchangeRateService {
     }
 
     private String buildApiUrl(String baseCurrency, String date, String symbols) {
-        return exchangeApiBaseUrl + "/" + date + "?access_key=" + accessKey +
+        return apiBaseUrl + "/" + date + "?access_key=" + accessKey +
                 "&base=" + baseCurrency + "&symbols=" + symbols;
     }
 

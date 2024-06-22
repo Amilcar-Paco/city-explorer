@@ -58,22 +58,11 @@ const Login: React.FC = () => {
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow rounded-lg sm:px-10">
                     <div className="flex justify-center">
-                        <svg
-                            className="h-12 w-auto"
-                            viewBox="0 0 40 40"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            aria-hidden="true"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M20 4a16 16 0 0 0-9.395 2.98l-.185.137-.138-.099A16
-                                16 0 1 0 20 4zm0 4c4.418 0 8 3.582 8 8s-3.582 8-8 8-8-3.582-8-8 3.582-8 8-8zm-6 7h12c.667 0
-                                1 .334 1 1v1c0 .667-.333 1-1 1h-12c-.666 0-1-.333-1-1v-1c0-.666.334-1 1-1zm0 5c-.667 0-1 .333-1
-                                1v1c0 .667.333 1 1 1h12c.667 0 1-.333 1-1v-1c0-.667-.333-1-1-1z"
-                            />
-                        </svg>
+                        <img
+                            className="mx-auto h-12 w-auto"
+                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                            alt="Workflow"
+                        />
                     </div>
                     <div className="mt-6">
                         <form className="space-y-6" onSubmit={handleSubmit}>

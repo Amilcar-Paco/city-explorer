@@ -1,10 +1,10 @@
 package com.paco.city_explorer_backend.Controller;
 
-import com.paco.city_explorer_backend.Dto.AuthRequest;
-import com.paco.city_explorer_backend.Dto.AuthResponse;
-import com.paco.city_explorer_backend.Dto.RegisterRequest;
+import com.paco.city_explorer_backend.Dto.Auth.AuthRequest;
+import com.paco.city_explorer_backend.Dto.Auth.AuthResponse;
+import com.paco.city_explorer_backend.Dto.Auth.RegisterRequest;
 import com.paco.city_explorer_backend.Exception.UnauthorizedException;
-import com.paco.city_explorer_backend.Service.AuthService;
+import com.paco.city_explorer_backend.Service.Auth.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

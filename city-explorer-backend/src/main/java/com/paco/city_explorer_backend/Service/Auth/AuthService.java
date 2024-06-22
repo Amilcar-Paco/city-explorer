@@ -1,8 +1,8 @@
-package com.paco.city_explorer_backend.Service;
+package com.paco.city_explorer_backend.Service.Auth;
 
-import com.paco.city_explorer_backend.Dto.AuthRequest;
-import com.paco.city_explorer_backend.Dto.AuthResponse;
-import com.paco.city_explorer_backend.Dto.RegisterRequest;
+import com.paco.city_explorer_backend.Dto.Auth.AuthRequest;
+import com.paco.city_explorer_backend.Dto.Auth.AuthResponse;
+import com.paco.city_explorer_backend.Dto.Auth.RegisterRequest;
 import com.paco.city_explorer_backend.Exception.UnauthorizedException;
 import com.paco.city_explorer_backend.Repository.UserRepository;
 import com.paco.city_explorer_backend.Security.JwtTokenProvider;
