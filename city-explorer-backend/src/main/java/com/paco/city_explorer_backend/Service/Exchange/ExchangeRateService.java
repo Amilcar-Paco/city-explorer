@@ -1,6 +1,6 @@
-package com.paco.city_explorer_backend.Service;
+package com.paco.city_explorer_backend.Service.Exchange;
 
-import com.paco.city_explorer_backend.Dto.ExchangeRateDTO;
+import com.paco.city_explorer_backend.Dto.Exchange.ExchangeRateDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
