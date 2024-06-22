@@ -28,7 +28,7 @@ Here are the key API routes available in the backend:
 - **Weather Information**: `/api/v1/city/weather/{cityName}` - GET method to fetch weather data for a city by name.
 - **Exchange Rates**: `/api/v1/city/exchange-rates` - GET method to retrieve today's exchange rates.
 - **Population Data**: `/api/v1/city/{cityName}/population` - GET method to fetch population data for a city by name.
-- **GDP Data**: `/api/v1/city/{cityName}/gdp` - GET method to fetch GDP data for a city by name.
+- **GDP Data**: `/api/v1/city/{cityName}/gdp` - GET method to fetch GDP data for a country.
 
 Explore more endpoints and their functionalities using the Swagger UI.
 
