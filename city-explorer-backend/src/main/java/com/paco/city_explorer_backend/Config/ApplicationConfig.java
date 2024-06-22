@@ -3,6 +3,7 @@ package com.paco.city_explorer_backend.Config;
 import com.paco.city_explorer_backend.Repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -49,5 +50,10 @@ public class ApplicationConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer customizeJackson() {
+        return builder -> builder.failOnEmptyBeans(false);
     }
 }

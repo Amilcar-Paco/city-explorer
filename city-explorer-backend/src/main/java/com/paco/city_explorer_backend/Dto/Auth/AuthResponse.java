@@ -1,4 +1,4 @@
-package com.paco.city_explorer_backend.Dto;
+package com.paco.city_explorer_backend.Dto.Auth;
 
 public class AuthResponse {
     private String accessToken;

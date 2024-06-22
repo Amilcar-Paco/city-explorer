@@ -1,14 +1,13 @@
-package com.paco.city_explorer_backend.Dto;
+package com.paco.city_explorer_backend.Dto.Auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class AuthRequest {
 
     private String email;
     private String password;

@@ -1,7 +1,7 @@
 package com.paco.city_explorer_backend;
 
-import com.paco.city_explorer_backend.Dto.ExchangeRateDTO;
-import com.paco.city_explorer_backend.Service.ExchangeRateService;
+import com.paco.city_explorer_backend.Dto.Exchange.ExchangeRateDTO;
+import com.paco.city_explorer_backend.Service.Exchange.ExchangeRateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

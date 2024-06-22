@@ -1,4 +1,4 @@
-package com.paco.city_explorer_backend.Dto;
+package com.paco.city_explorer_backend.Dto.Exchange;
 
 import lombok.Getter;
 import lombok.Setter;
