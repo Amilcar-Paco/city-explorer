@@ -4,6 +4,7 @@ import com.paco.city_explorer_backend.Dto.Weather.WeatherDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,22 +20,21 @@ public class WeatherService {
     private String accessKey;
 
     private final RestTemplate restTemplate;
-    private final GeoCodingService geocodingService;
 
-    public WeatherService(RestTemplate restTemplate, GeoCodingService geocodingService) {
+    public WeatherService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.geocodingService = geocodingService;
     }
 
+    @Cacheable(value = "weatherCache", key = "#lat + '-' + #lon")
     public WeatherDTO getWeather(Double lat, Double lon) {
         try {
             String apiUrl = buildApiUrl(lat, lon);
             WeatherDTO weather = restTemplate.getForObject(apiUrl, WeatherDTO.class);
             if (weather != null) {
                 // Convert temperatures to Celsius
-                weather.current.setTemp(convertKelvinToCelsius(weather.current.getTemp()));
-                weather.current.setFeels_like(convertKelvinToCelsius(weather.current.getFeels_like()));
-                weather.current.setDew_point(convertKelvinToCelsius(weather.current.getDew_point()));
+                weather.getCurrent().setTemp(convertKelvinToCelsius(weather.getCurrent().getTemp()));
+                weather.getCurrent().setFeels_like(convertKelvinToCelsius(weather.getCurrent().getFeels_like()));
+                weather.getCurrent().setDew_point(convertKelvinToCelsius(weather.getCurrent().getDew_point()));
             }
             return weather;
         } catch (Exception e) {

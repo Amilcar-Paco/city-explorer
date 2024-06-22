@@ -3,7 +3,6 @@ package com.paco.city_explorer_backend.Dto.Weather;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,5 +21,5 @@ public class CurrentWeatherDTO {
     private int visibility; // Visibility in meters
     private double wind_speed; // Wind speed in meters/second
     private int wind_deg; // Wind direction in degrees
-    private ArrayList<WeatherDescriptionDTO> weather;
+    private List<WeatherDescriptionDTO> weather;
 }
