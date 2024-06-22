@@ -13,6 +13,7 @@ Welcome to the City Explorer application repository! This project integrates a f
 
 ### Frontend
 - **User Interface**: Basic interfaces for user login and registration.
+- **Home Page**: Displays weather forecasting, GDP, population data, and historical data comparison for population and GDP.
 - **Multi-Language Support**: Implemented multi-language support to enhance accessibility.
 
 ## Project Status
