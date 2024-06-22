@@ -50,10 +50,25 @@ Follow these instructions to get a copy of the project up and running on your lo
 - Java Development Kit (JDK) installed
 - Node.js and npm (for frontend development)
 
-### Backend Setup
+### Setup
 
 1. Clone the repository:
 
    ```bash
    git clone <repository-url>
+   cd city-explorer
+   
+2. The repository contains two main folders: city-explorer-backend and city-explorer-frontend.
+
+3. Navigate to the backend directory and run the backend application:
+   
+   ```bash
    cd city-explorer-backend
+   ./mvnw spring-boot:run
+
+5. In a new terminal, navigate to the frontend directory and start the frontend server:
+   
+   ```bash
+   cd city-explorer-frontend
+   npm install
+   npm start
