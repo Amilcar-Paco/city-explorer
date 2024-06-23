@@ -48,7 +48,7 @@ const WeatherForecastCard: React.FC<{ weatherData: WeatherData }> = ({ weatherDa
             <h2 className="text-xl font-bold mb-2">{state}, {country}</h2>
             <p className="text-gray-700">{new Date(datetime).toLocaleString()}</p>
             <div className="flex items-center my-4">
-                <img src={icon} alt="Weather icon" className="h-12 w-12" />
+                <img src={icon || 'https://openweathermap.org/img/wn/03d@2x.png'} alt="Weather icon" className="h-12 w-12" />
                 <div className="ml-4">
                     <p className="text-2xl font-bold">{temp}°C</p>
                     <p className="text-gray-600">{main} - {description}</p>

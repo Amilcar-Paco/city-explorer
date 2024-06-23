@@ -55,6 +55,9 @@ axiosInstance.interceptors.response.use(
       } catch (error) {
        // store.dispatch(logout());
         //window.location.replace('/login');
+        localStorage.remove("accessToken");
+        localStorage.remove("refreshToken");
+        localStorage.remove("firstName");
         return Promise.reject(error);
       }
     }
