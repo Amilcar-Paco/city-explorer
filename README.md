@@ -1,4 +1,4 @@
-# City Explorer Application
+# City Explorer Application [Watch the demo video](https://youtu.be/VoZsNtUOUIQ)
 
 Welcome to the City Explorer application repository! This project integrates a feature-rich backend with essential frontend functionalities to facilitate city exploration and user management. Below is an overview of the application's features, setup instructions, error handling details, and how to explore its capabilities further.
 
