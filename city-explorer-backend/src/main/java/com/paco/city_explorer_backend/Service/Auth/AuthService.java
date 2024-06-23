@@ -3,6 +3,7 @@ package com.paco.city_explorer_backend.Service.Auth;
 import com.paco.city_explorer_backend.Dto.Auth.AuthRequest;
 import com.paco.city_explorer_backend.Dto.Auth.AuthResponse;
 import com.paco.city_explorer_backend.Dto.Auth.RegisterRequest;
+import com.paco.city_explorer_backend.Exception.ExpiredJwtTokenException;
 import com.paco.city_explorer_backend.Exception.UnauthorizedException;
 import com.paco.city_explorer_backend.Repository.UserRepository;
 import com.paco.city_explorer_backend.Security.JwtTokenProvider;
@@ -63,7 +64,21 @@ public class AuthService {
         return new AuthResponse(tokens.get("accessToken"), tokens.get("refreshToken"));
     }
 
-    public Map<String, String> generateTokens(User user) {
+    public AuthResponse refresh (String refreshToken) {
+        try {
+            String username = jwtTokenProvider.getUsernameFromToken(refreshToken);
+            var user = userRepository.findByEmail(username) // email is equals to username
+                    .orElseThrow(() -> new UnauthorizedException("Invalid username or password"));
+            Map<String, String> tokens = generateTokens(user);
+            return new AuthResponse(tokens.get("accessToken"), tokens.get("refreshToken"));
+        } catch (ExpiredJwtTokenException e) {
+            throw new ExpiredJwtTokenException("Refresh token has expired");
+        } catch (UnauthorizedException e) {
+            throw new UnauthorizedException("Token refresh failed");
+        }
+    }
+
+    private Map<String, String> generateTokens(User user) {
         String accessToken = jwtTokenProvider.generateToken(user);
         String refreshToken = jwtTokenProvider.generateRefreshToken(user);
 

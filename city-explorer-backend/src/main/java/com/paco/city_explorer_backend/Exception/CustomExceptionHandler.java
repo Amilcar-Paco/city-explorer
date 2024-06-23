@@ -21,5 +21,8 @@ public class CustomExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 
-    // Other exception handlers
+    @ExceptionHandler(ExpiredJwtTokenException.class)
+    public ResponseEntity<String> handleExpiredJwtTokenException(ExpiredJwtTokenException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    }
 }
