@@ -1,6 +1,9 @@
 package com.paco.city_explorer_backend.Security;
 
+import com.paco.city_explorer_backend.Exception.ExpiredJwtTokenException;
+import com.paco.city_explorer_backend.Exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -61,7 +64,13 @@ public class JwtTokenProvider {
     }
 
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+        try {
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+        } catch (ExpiredJwtException e) {
+            throw new ExpiredJwtTokenException("JWT Token has expired");
+        } catch (Exception e) {
+            throw new UnauthorizedException("Invalid token");
+        }
     }
 
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {

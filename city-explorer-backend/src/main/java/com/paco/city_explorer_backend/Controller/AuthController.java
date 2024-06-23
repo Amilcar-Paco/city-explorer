@@ -2,7 +2,9 @@ package com.paco.city_explorer_backend.Controller;
 
 import com.paco.city_explorer_backend.Dto.Auth.AuthRequest;
 import com.paco.city_explorer_backend.Dto.Auth.AuthResponse;
+import com.paco.city_explorer_backend.Dto.Auth.RefreshRequest;
 import com.paco.city_explorer_backend.Dto.Auth.RegisterRequest;
+import com.paco.city_explorer_backend.Exception.ExpiredJwtTokenException;
 import com.paco.city_explorer_backend.Exception.UnauthorizedException;
 import com.paco.city_explorer_backend.Service.Auth.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -56,6 +58,24 @@ public class AuthController {
             AuthResponse authResponse = authService.register(registerRequest);
             return ResponseEntity.ok(authResponse);
         } catch (UnauthorizedException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/refresh")
+    @Operation(summary = "Refresh access token using refresh token")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully refreshed and generated new access token"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid refresh token"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    public ResponseEntity<AuthResponse> refresh(@Valid @RequestBody RefreshRequest refreshRequest) {
+        try {
+            AuthResponse authResponse = authService.refresh(refreshRequest.getRefreshToken());
+            return ResponseEntity.ok(authResponse);
+        } catch (ExpiredJwtTokenException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
