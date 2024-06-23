@@ -66,6 +66,7 @@ Follow these instructions to get a copy of the project up and running on your lo
    ```bash
    cd city-explorer-backend
    ./mvnw spring-boot:run
+To ensure the successful setup of the application, configure the variables at application.yml. 
 
 5. In a new terminal, navigate to the frontend directory and start the frontend server:
    
