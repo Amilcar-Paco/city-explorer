@@ -71,7 +71,7 @@ public class AuthService {
             var user = userRepository.findByEmail(username) // email is equals to username
                     .orElseThrow(() -> new UnauthorizedException("Invalid username or password"));
             Map<String, String> tokens = generateTokens(user);
-            return new AuthResponse(tokens.get("accessToken"), tokens.get("refreshToken"));
+            return new AuthResponse(user.getFirstName(),tokens.get("accessToken"), tokens.get("refreshToken"));
         } catch (ExpiredJwtTokenException e) {
             throw new ExpiredJwtTokenException("Refresh token has expired");
         } catch (UnauthorizedException e) {
