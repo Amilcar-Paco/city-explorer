@@ -1,5 +1,6 @@
 package com.paco.city_explorer_backend.Service.Weather;
 
+import com.paco.city_explorer_backend.Dto.Weather.GeoLocationDTO;
 import com.paco.city_explorer_backend.Dto.Weather.WeatherDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,26 +26,32 @@ public class WeatherService {
         this.restTemplate = restTemplate;
     }
 
-    @Cacheable(value = "weatherCache", key = "#lat + '-' + #lon")
-    public WeatherDTO getWeather(Double lat, Double lon) {
+    @Cacheable(value = "weatherCache", key = "#location.lat + '-' + #location.lon")
+    public WeatherDTO getWeather(GeoLocationDTO location) {
         try {
-            String apiUrl = buildApiUrl(lat, lon);
+            String apiUrl = buildApiUrl(location.getLat(), location.getLon());
             WeatherDTO weather = restTemplate.getForObject(apiUrl, WeatherDTO.class);
             if (weather != null) {
                 // Convert temperatures to Celsius
                 weather.getCurrent().setTemp(convertKelvinToCelsius(weather.getCurrent().getTemp()));
                 weather.getCurrent().setFeels_like(convertKelvinToCelsius(weather.getCurrent().getFeels_like()));
                 weather.getCurrent().setDew_point(convertKelvinToCelsius(weather.getCurrent().getDew_point()));
+
+                weather.getCurrent().getWeather().getFirst().setIcon(
+                        "https://openweathermap.org/img/wn/" +
+                                weather.getCurrent().getWeather().getFirst().getIcon() +
+                                "@2x.png");
+                weather.setGeoLocation(location);
             }
             return weather;
         } catch (Exception e) {
-            logger.error("Error fetching weather data for coordinates: {}, {}", lat, lon, e);
+            logger.error("Error fetching weather data for city: {}", location.getState(), e);
             return null;
         }
     }
 
     private String buildApiUrl(double lat, double lon) {
-        return apiBaseUrl + "/data/3.0/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&daily&appid="
+        return apiBaseUrl + "/data/3.0/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily&appid="
                 + accessKey;
     }
 

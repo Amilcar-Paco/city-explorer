@@ -45,7 +45,7 @@ public class CityDataService {
     @Cacheable(value = "weatherCache", key = "#cityName")
     public WeatherDTO getCityData(String cityName) {
         var location = getLocation(cityName);
-        return weatherService.getWeather(location.getLat(), location.getLon());
+        return weatherService.getWeather(location);
     }
 
     /**
