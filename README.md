@@ -26,6 +26,7 @@ Here are the key API routes available in the backend:
 
 - **Login**: `/api/v1/auth/login` - POST method for user authentication.
 - **Register**: `/api/v1/auth/register` - POST method to register a new user.
+- **Refresh**: `/api/v1/auth/refres` - POST method to generate a new token..
 - **Weather Information**: `/api/v1/city/weather/{cityName}` - GET method to fetch weather data for a city by name.
 - **Exchange Rates**: `/api/v1/city/exchange-rates` - GET method to retrieve today's exchange rates.
 - **Population Data**: `/api/v1/city/{cityName}/population` - GET method to fetch population data for a city by name.
