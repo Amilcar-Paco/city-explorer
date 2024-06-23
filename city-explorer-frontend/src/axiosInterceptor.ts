@@ -1,7 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { refreshToken } from "./features/auth/authService";
-import store from "./store/store";
-import { logout } from "./features/auth/authSlice";
 
 // Extend AxiosRequestConfig to include _retry property
 interface InternalAxiosRequestConfig extends AxiosRequestConfig {
@@ -55,7 +53,7 @@ axiosInstance.interceptors.response.use(
 
         return axiosInstance(originalRequest);
       } catch (error) {
-        store.dispatch(logout());
+       // store.dispatch(logout());
         //window.location.replace('/login');
         return Promise.reject(error);
       }

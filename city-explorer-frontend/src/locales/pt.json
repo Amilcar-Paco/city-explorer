@@ -26,5 +26,7 @@
   "VISIBILITY": "Visibilidade",
   "SEARCH": "Pesquisar",
   "EXCHANGE_RATE": "Taxa de Câmbio",
-  "BASE_CURRENCY": "Moeda base: "
+  "BASE_CURRENCY": "Moeda base: ",
+  "LOADING": "Carregando ...",
+  "LOGOUT": "Sair"
 }
