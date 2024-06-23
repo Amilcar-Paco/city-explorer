@@ -28,5 +28,15 @@
   "EXCHANGE_RATE": "Taxa de Câmbio",
   "BASE_CURRENCY": "Moeda base: ",
   "LOADING": "Carregando ...",
-  "LOGOUT": "Sair"
+  "LOGOUT": "Sair",
+  "POPULATION_GDP": "População e PIB per capita",
+  "POPULATION": "População",
+  "COUNTRY": "País",
+  "GDP": "PIB per Capita",
+  "Date": "Ano",
+  "PREVIOUS": "Antes",
+  "NEXT": "Próximo",
+  "PAGE": "Página",
+  "OF": "de",
+  "FILTER_BY_YEAR": "Filtrar por Ano:"
 }

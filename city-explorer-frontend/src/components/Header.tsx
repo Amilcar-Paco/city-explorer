@@ -7,7 +7,6 @@ const Header: React.FC = () => {
     const { t } = useTranslation();
     const firstName = localStorage.getItem('firstName');
 
-    console.log('name: ', firstName)
     const handleLogout = () => {
         localStorage.removeItem('accessToken'); // Remove accessToken from localStorage
         localStorage.removeItem('refreshToken'); // Remove refreshToken from localStorage

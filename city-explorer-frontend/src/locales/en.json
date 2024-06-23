@@ -28,5 +28,15 @@
   "EXCHANGE_RATE": "Exchange Rate",
   "BASE_CURRENCY": "Base currency: ",
   "LOADING": "Loading ...",
-  "LOGOUT": "Logout"
+  "LOGOUT": "Logout",
+  "POPULATION_GDP": "Population and GDP per capita",
+  "POPULATION": "Population",
+  "COUNTRY": "Country",
+  "GDP": "DGP per Capita",
+  "DATE": "Year",
+  "PREVIOUS": "Previous",
+  "NEXT": "Next",
+  "PAGE": "Page",
+  "OF": "of",
+  "FILTER_BY_YEAR": "Filter By Year:"
 }

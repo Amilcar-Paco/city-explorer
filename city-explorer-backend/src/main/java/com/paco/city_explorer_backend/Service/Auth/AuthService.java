@@ -39,7 +39,6 @@ public class AuthService {
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
             var user = userRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new UnauthorizedException("Invalid username or password"));
-            System.out.println(user.getFirstName());
 
             Map<String, String> tokens = generateTokens(user);
             return new AuthResponse(user.getFirstName(), tokens.get("accessToken"), tokens.get("refreshToken"));

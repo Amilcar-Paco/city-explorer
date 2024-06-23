@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import WeatherForecast from "../components/weather/WeatherForecast";
 import CurrencyExchangeRate from "../components/exchange/CurrencyExchangeRate";
-import PopulationGdp from "../components/population/PopulationGdp";
+import PopulationGdp from "../components/populationAndGdp/PopulationGdp";
 
 const HomePage: React.FC = () => {
 

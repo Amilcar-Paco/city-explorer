@@ -21,8 +21,8 @@ const CurrencyExchangeRateCard: React.FC<{ exchangeRateData?: CurrencyExchangeRa
         },
     };
 
-    // Check if exchangeRateData.base is null to determine if user is logged in
-    const isUserLoggedIn = exchangeRateData && exchangeRateData.base !== null;
+    // Check if exchangeRateData is defined and not null
+    const isUserLoggedIn = exchangeRateData && exchangeRateData.base !== null
 
     return (
         <div className={`bg-white shadow rounded-lg p-6 ${isUserLoggedIn ? '' : 'blurred'}`}>

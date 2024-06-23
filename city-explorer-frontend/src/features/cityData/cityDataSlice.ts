@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getWeather, getExchangeRate } from "./authService";
+import { getWeather, getExchangeRate, getPopulationGDP } from "./cityDataService";
 
 interface CityDataState {
   weather: any | null;
@@ -34,7 +34,7 @@ const initialState: CityDataState = {
     country: null,
     state: null,
   },
-  population: null,
+  population: {},
   gdp: null,
   exchangeRate: {
     timestamp: null,
@@ -84,6 +84,10 @@ const cityDataSlice = createSlice({
       state.exchangeRate.date = action.payload.date;
       state.exchangeRate.rates = action.payload.rates;
     },
+    fetchPopulationAndGDPSuccess: (state, action: PayloadAction<any>) => {
+      state.loading = false;
+      state.population = action.payload;
+    },
     fetchDataFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
@@ -96,6 +100,7 @@ export const {
   fetchDataFailure,
   fetchWeatherSuccess,
   fetchExchangeRateSuccess,
+  fetchPopulationAndGDPSuccess
 } = cityDataSlice.actions;
 
 export const fetchWeatherData = (cityName: string) => async (dispatch: any) => {
@@ -113,6 +118,16 @@ export const fetchExchangeRate = () => async (dispatch: any) => {
   try {
     const response = await getExchangeRate();
     dispatch(fetchExchangeRateSuccess(response));
+  } catch (error: any) {
+    dispatch(fetchDataFailure("Cidade nao encontrada"));
+  }
+};
+
+export const fetcPopulationAndGDP = (cityName: string) => async (dispatch: any) => {
+  dispatch(fetchDataStart());
+  try {
+    const response = await getPopulationGDP(cityName);
+    dispatch(fetchPopulationAndGDPSuccess(response));
   } catch (error: any) {
     dispatch(fetchDataFailure("Cidade nao encontrada"));
   }
