@@ -7,9 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WeatherDTO {
-    private double lat;
-    private double lon;
     private String timezone;
     private int timezone_offset;
+    private GeoLocationDTO geoLocation;
     private CurrentWeatherDTO current;
 }

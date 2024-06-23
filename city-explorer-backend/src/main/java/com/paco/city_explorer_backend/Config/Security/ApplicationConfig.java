@@ -56,4 +56,5 @@ public class ApplicationConfig {
     public Jackson2ObjectMapperBuilderCustomizer customizeJackson() {
         return builder -> builder.failOnEmptyBeans(false);
     }
+
 }

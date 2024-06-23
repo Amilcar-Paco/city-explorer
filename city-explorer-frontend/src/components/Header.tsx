@@ -2,9 +2,18 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-const Header: React.FC<{ firstName?: string }> = ({ firstName }) => {
+const Header: React.FC = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const firstName = localStorage.getItem('firstName');
+
+    console.log('name: ', firstName)
+    const handleLogout = () => {
+        localStorage.removeItem('accessToken'); // Remove accessToken from localStorage
+        localStorage.removeItem('refreshToken'); // Remove refreshToken from localStorage
+        localStorage.removeItem('firstName'); // Remove firstName from localStorage
+        navigate('/'); // Red
+    };
 
     return (
         <header className="bg-white shadow">
@@ -19,28 +28,38 @@ const Header: React.FC<{ firstName?: string }> = ({ firstName }) => {
                         <span className="ml-2 text-xl font-bold text-indigo-600"> {t('APP_NAME')}</span>
                     </div>
                     <div className="flex items-center space-x-4">
-                        <span className="text-gray-700 hidden sm:inline">
-                            {t('HELLO_LABEL')} {firstName || 'Guest'}
-                        </span>
-                        <button
-                            className="text-indigo-600 hover:text-indigo-500"
-                            onClick={() => navigate('/login')}
-                        >
-                            {t('SIGN_IN')}
-                        </button>
-                        <button
-                            className="text-indigo-600 hover:text-indigo-500"
-                            onClick={() => navigate('/register')}
-                        >
-                             {t('SIGN_UP')}
-                        </button>
+                        {firstName ? (
+                            <>
+                                <span className="text-gray-700">{t('HELLO_LABEL')} {firstName}</span>
+                                <button
+                                    className="text-indigo-600 hover:text-indigo-500"
+                                    onClick={handleLogout}
+                                >
+                                    {t('LOGOUT')}
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button
+                                    className="text-indigo-600 hover:text-indigo-500"
+                                    onClick={() => navigate('/login')}
+                                >
+                                    {t('SIGN_IN')}
+                                </button>
+                                <button
+                                    className="text-indigo-600 hover:text-indigo-500"
+                                    onClick={() => navigate('/register')}
+                                >
+                                    {t('SIGN_UP')}
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className="flex justify-between items-center h-16 sm:hidden">
-                    <span className="text-gray-700">
-                    {t('HELLO_LABEL')}5\'
-                    ' {firstName || 'Guest'}
-                    </span>
+                    {firstName && (
+                        <span className="text-gray-700">{t('HELLO_LABEL')} {firstName}</span>
+                    )}
                 </div>
             </div>
         </header>

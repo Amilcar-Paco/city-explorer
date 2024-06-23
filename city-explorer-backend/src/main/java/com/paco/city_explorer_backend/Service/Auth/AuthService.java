@@ -39,9 +39,10 @@ public class AuthService {
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
             var user = userRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new UnauthorizedException("Invalid username or password"));
+            System.out.println(user.getFirstName());
 
             Map<String, String> tokens = generateTokens(user);
-            return new AuthResponse(tokens.get("accessToken"), tokens.get("refreshToken"));
+            return new AuthResponse(user.getFirstName(), tokens.get("accessToken"), tokens.get("refreshToken"));
         } catch (Exception e) {
             throw new UnauthorizedException("Invalid username or password");
         }
@@ -61,7 +62,7 @@ public class AuthService {
         var newUser = userRepository.save(user);
 
         Map<String, String> tokens = generateTokens(newUser);
-        return new AuthResponse(tokens.get("accessToken"), tokens.get("refreshToken"));
+        return new AuthResponse(user.getFirstName(), tokens.get("accessToken"), tokens.get("refreshToken"));
     }
 
     public AuthResponse refresh (String refreshToken) {
