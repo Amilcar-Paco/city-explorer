@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.blurred {
+    filter: blur(4px); /* Blur effect */
+    opacity: 0.5; /* Reduced opacity to simulate disabled state */
+}

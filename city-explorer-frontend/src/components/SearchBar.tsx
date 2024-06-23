@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { fetchWeatherData } from '../features/cityData/cityDataSlice';
+import { fetchExchangeRate, fetchWeatherData } from '../features/cityData/cityDataSlice';
 
 interface SearchBarProps {
     placeholder?: string;
@@ -22,6 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder = 'Search...', classN
         e.preventDefault();
         if (query.trim() !== '') {
             await dispatch(fetchWeatherData(query.trim()))
+            await dispatch(fetchExchangeRate())
         }
     };
 
