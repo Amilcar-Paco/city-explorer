@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getWeather } from "./authService";
+import { getWeather, getExchangeRate } from "./authService";
 
 interface CityDataState {
   weather: any | null;
@@ -36,7 +36,12 @@ const initialState: CityDataState = {
   },
   population: null,
   gdp: null,
-  exchangeRate: null,
+  exchangeRate: {
+    timestamp: null,
+    base: null,
+    date: null,
+    rates: {},
+  },
   loading: false,
   error: null,
 };
@@ -47,14 +52,6 @@ const cityDataSlice = createSlice({
   reducers: {
     fetchDataStart: (state) => {
       state.loading = true;
-    },
-    fetchDataSuccess: (state, action: PayloadAction<any>) => {
-      state.loading = false;
-      const { weather, population, gdp, exchangeRate } = action.payload;
-      state.weather = weather;
-      state.population = population;
-      state.gdp = gdp;
-      state.exchangeRate = exchangeRate;
     },
     fetchWeatherSuccess: (state, action: PayloadAction<any>) => {
       state.loading = false;
@@ -80,6 +77,13 @@ const cityDataSlice = createSlice({
       state.weather.description = action.payload.current.weather[0].description;
       state.weather.icon = action.payload.current.weather[0].icon;
     },
+    fetchExchangeRateSuccess: (state, action: PayloadAction<any>) => {
+      state.loading = false;
+      state.exchangeRate.timestamp = action.payload.timestamp;
+      state.exchangeRate.base = action.payload.base;
+      state.exchangeRate.date = action.payload.date;
+      state.exchangeRate.rates = action.payload.rates;
+    },
     fetchDataFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
@@ -89,9 +93,9 @@ const cityDataSlice = createSlice({
 
 export const {
   fetchDataStart,
-  fetchDataSuccess,
   fetchDataFailure,
   fetchWeatherSuccess,
+  fetchExchangeRateSuccess,
 } = cityDataSlice.actions;
 
 export const fetchWeatherData = (cityName: string) => async (dispatch: any) => {
@@ -99,6 +103,16 @@ export const fetchWeatherData = (cityName: string) => async (dispatch: any) => {
   try {
     const response = await getWeather(cityName);
     dispatch(fetchWeatherSuccess(response));
+  } catch (error: any) {
+    dispatch(fetchDataFailure("Cidade nao encontrada"));
+  }
+};
+
+export const fetchExchangeRate = () => async (dispatch: any) => {
+  dispatch(fetchDataStart());
+  try {
+    const response = await getExchangeRate();
+    dispatch(fetchExchangeRateSuccess(response));
   } catch (error: any) {
     dispatch(fetchDataFailure("Cidade nao encontrada"));
   }
