@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { performRegister } from '../../features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 const Register: React.FC = () => {
     const { t } = useTranslation();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -20,17 +24,18 @@ const Register: React.FC = () => {
         password: false,
     });
 
-    const navigate = useNavigate();
+    const loading = useAppSelector(state => state.auth.loading);
+    const error = useAppSelector(state => state.auth.error);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
-        setFormData((prevData) => ({
+        setFormData(prevData => ({
             ...prevData,
             [name]: type === 'checkbox' ? checked : value,
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // Simple form validation
@@ -45,21 +50,24 @@ const Register: React.FC = () => {
             return;
         }
 
-        // Handle form submission
-        console.log(formData);
-        // Reset form data and errors
+        try {
+            await dispatch(performRegister(formData));
+            navigate('/');
+        } catch (error: any) {
+            setErrors({
+                firstName: false,
+                lastName: false,
+                email: false,
+                password: false,
+            });
+        }
+
         setFormData({
             firstName: '',
             lastName: '',
             email: '',
             password: '',
             allowExtraEmails: false,
-        });
-        setErrors({
-            firstName: false,
-            lastName: false,
-            email: false,
-            password: false,
         });
     };
 
@@ -153,18 +161,25 @@ const Register: React.FC = () => {
                                     {t('MARKETING_EMAILS')}
                                 </label>
                             </div>
+                            {error && (
+                                <div className="text-red-500 text-sm mt-2">
+                                    {error}
+                                </div>
+                            )}
                             <div>
                                 <button
                                     type="submit"
-                                    className="w-full bg-indigo-600 py-2 px-4 mt-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    disabled={loading}
+                                    className={`w-full py-2 px-4 mt-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                        }`}
                                 >
-                                    {t('SIGN_UP')}
+                                    {loading ? t('LOADING') : t('SIGN_UP')}
                                 </button>
                             </div>
                         </form>
                         <div className="mt-6">
                             <p className="text-sm text-gray-600">
-                               {t('ALREADY_HAVE_ACCOUNT')}{' '}
+                                {t('ALREADY_HAVE_ACCOUNT')}{' '}
                                 <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500" onClick={() => navigate('/login')}>
                                     {t('SIGN_IN')}
                                 </a>

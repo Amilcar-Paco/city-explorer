@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { performLogin } from '../../features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 const Login: React.FC = () => {
     const { t } = useTranslation();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: '',
-        password: '',
-        rememberMe: false,
+        password: ''
     });
 
     const [errors, setErrors] = useState({
@@ -16,20 +19,20 @@ const Login: React.FC = () => {
         password: false,
     });
 
-    const navigate = useNavigate();
+    const loading = useAppSelector(state => state.auth.loading);
+    const error = useAppSelector(state => state.auth.error);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: type === 'checkbox' ? checked : value,
+            [name]: value,
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Simple form validation
         const { email, password } = formData;
         if (!email || !password) {
             setErrors({
@@ -39,17 +42,20 @@ const Login: React.FC = () => {
             return;
         }
 
-        // Handle form submission
-        console.log(formData);
-        // Reset form data and errors
+        try {
+            await dispatch(performLogin({ email, password }));
+            navigate('/');
+        } catch (error: any) {
+            console.error('Login failed:', error.message);
+            setErrors({
+                email: false,
+                password: false,
+            });
+        }
+
         setFormData({
             email: '',
-            password: '',
-            rememberMe: false,
-        });
-        setErrors({
-            email: false,
-            password: false,
+            password: ''
         });
     };
 
@@ -98,35 +104,32 @@ const Login: React.FC = () => {
                                         } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                                 />
                             </div>
-                            <div className="flex items-center">
-                                <input
-                                    id="rememberMe"
-                                    name="rememberMe"
-                                    type="checkbox"
-                                    checked={formData.rememberMe}
-                                    onChange={handleInputChange}
-                                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                                />
-                                <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-900">
-                                    {t('REMEMBER_ME')}
-                                </label>
-                            </div>
+                            {error && (
+                                <div className="text-red-500 text-sm mt-2">
+                                    {error}
+                                </div>
+                            )}
                             <div>
                                 <button
                                     type="submit"
-                                    className="w-full bg-indigo-600 py-2 px-4 mt-4 border border-transparent rounded-md shadow-sm
-                                    text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    disabled={loading}
+                                    className={`w-full py-2 px-4 mt-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white
+                                        ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                        }`}
                                 >
-                                    {t('SIGN_IN')}
+                                    {loading ? t('LOADING') : t('SIGN_IN')}
                                 </button>
                             </div>
                         </form>
                         <div className="mt-6">
                             <div className="flex justify-between">
-                                <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500">
+                                <a href="#"
+                                    className="text-sm text-indigo-600 hover:text-indigo-500">
                                     {t('FORGOT_PASSWORD')}
                                 </a>
-                                <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500" onClick={() => navigate('/register')}>
+                                <a href="#"
+                                    className="text-sm text-indigo-600 hover:text-indigo-500"
+                                    onClick={() => navigate('/register')}>
                                     {t('SIGN_UP_LINK')}
                                 </a>
                             </div>

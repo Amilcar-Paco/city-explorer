@@ -1,27 +1,10 @@
 import React from 'react';
 import WeatherForecastCard from './WeatherForecastCard';
 import { useTranslation } from 'react-i18next';
-
-const weatherData = {
-    datetime: '2023-06-21T19:26:00',
-    city: 'London',
-    country: 'GB',
-    temperature: 21,
-    feelsLike: 20,
-    description: 'Broken clouds',
-    windSpeed: 6.2,
-    windDirection: 'SW',
-    pressure: 1009,
-    humidity: 53,
-    uvIndex: 1,
-    dewPoint: 11,
-    visibility: 10.0,
-    iconCode: '03d',
-    lat: 51.5074,
-    lon: -0.1278
-};
+import { useAppSelector } from '../../hooks/redux';
 
 const WeatherForecast: React.FC = () => {
+    const weatherData = useAppSelector(state => state.cityData.weather);
 
     const { t } = useTranslation()
 

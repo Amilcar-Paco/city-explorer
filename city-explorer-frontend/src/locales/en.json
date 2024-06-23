@@ -26,5 +26,7 @@
   "VISIBILITY": "Visibility",
   "SEARCH": "Search",
   "EXCHANGE_RATE": "Exchange Rate",
-  "BASE_CURRENCY": "Base currency: "
+  "BASE_CURRENCY": "Base currency: ",
+  "LOADING": "Loading ...",
+  "LOGOUT": "Logout"
 }
